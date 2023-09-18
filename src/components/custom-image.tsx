@@ -6,16 +6,29 @@ function cn(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function CustomImage({ imagePath }: { imagePath: string }) {
+export default function CustomImage({
+  imagePath,
+  alt,
+  priority = false,
+}: {
+  imagePath: string;
+  alt: string;
+  priority?: boolean;
+}) {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   return (
     <a href='#' className='group'>
-      <div className='aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200'>
+      <div className='aspect-w-7 aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200 relative'>
         <Image
-          alt=''
+          alt={alt}
           src={imagePath}
           fill
+          style={{
+            objectFit: 'cover',
+          }}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          priority={priority}
           className={cn(
             'group-hover:opacity-75 duration-700 ease-in-out',
             isLoading
