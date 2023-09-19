@@ -40,7 +40,7 @@ export default function CustomImage({
           onLoadingComplete={() => setLoading(false)}
         />
       </div>
-      <span className='absolute bottom-4 left-4 bg-gray-700 text-white w-20 h-8 flex items-center justify-center rounded-full font-semibold text-sm'>
+      <span className='absolute bottom-4 left-4 bg-gray-700 text-white px-4 h-8 flex items-center justify-center rounded-full font-semibold text-sm'>
         {tag}
       </span>
     </div>
