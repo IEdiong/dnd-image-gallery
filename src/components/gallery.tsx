@@ -1,19 +1,103 @@
+'use client';
 import { TImage } from '@/types';
 import CustomImage from './custom-image';
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { useCallback, useState } from 'react';
+
+function SortableImage({ image }: { image: TImage }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: image.id });
+  const style = {
+    transition: transition || undefined,
+    transform: CSS.Transform.toString(transform),
+  };
+  return (
+    <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
+      <CustomImage
+        imagePath={image.url}
+        alt={image.alt}
+        priority={image.id < 5 ? true : false}
+        tag={image.tags[0].title}
+      />
+    </div>
+  );
+}
 
 export default function Gallery() {
+  const [items, setItems] = useState(images);
+  const [activeId, setActiveId] = useState<number | null>(null);
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  // handle Drag Start
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveId(event.active.id as number);
+    console.log('dragStart', event);
+  }, []);
+
+  // handle Drag End
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setItems((items) => {
+        const oldIndex = items.findIndex((items) => items.id === active.id);
+        const newIndex = items.findIndex((items) => items.id === over!.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+
+    setActiveId(null);
+  }, []);
+
+  // handle Drag Cancel
+  const handleDragCancel = useCallback(() => {
+    setActiveId(null);
+  }, []);
+
   return (
     <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
       <div className='grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'>
-        {images.map((image: TImage) => (
-          <CustomImage
-            key={image.id}
-            imagePath={image.url}
-            alt={image.alt}
-            priority={image.id < 5 ? true : false}
-            tag={image.tags[0].title}
-          />
-        ))}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+        >
+          <SortableContext items={items} strategy={rectSortingStrategy}>
+            {items.map((image: TImage) => (
+              <SortableImage key={image.id} image={image} />
+            ))}
+          </SortableContext>
+          <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
+            {activeId ? (
+              <CustomImage
+                imagePath={images[activeId - 1].url}
+                alt={''}
+                tag={''}
+              />
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       </div>
     </div>
   );
