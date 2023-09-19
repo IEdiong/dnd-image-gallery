@@ -17,7 +17,6 @@ import {
   arrayMove,
   rectSortingStrategy,
   useSortable,
-  verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useCallback, useState } from 'react';
@@ -74,7 +73,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
+    <main className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
       <div className='grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'>
         <DndContext
           sensors={sensors}
@@ -99,7 +98,7 @@ export default function Gallery() {
           </DragOverlay>
         </DndContext>
       </div>
-    </div>
+    </main>
   );
 }
 
