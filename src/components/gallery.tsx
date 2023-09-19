@@ -40,8 +40,14 @@ function SortableImage({ image }: { image: TImage }) {
   );
 }
 
-export default function Gallery() {
-  const [items, setItems] = useState(images);
+export default function Gallery({
+  images: items,
+  setImages: setItems,
+}: {
+  images: TImage[];
+  setImages: any;
+}) {
+  // const [items, setItems] = useState(images);
   const [activeId, setActiveId] = useState<number | null>(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
@@ -52,20 +58,23 @@ export default function Gallery() {
   }, []);
 
   // handle Drag End
-  const handleDragEnd = useCallback((event: DragEndEvent) => {
-    const { active, over } = event;
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
 
-    if (active.id !== over?.id) {
-      setItems((items) => {
-        const oldIndex = items.findIndex((items) => items.id === active.id);
-        const newIndex = items.findIndex((items) => items.id === over!.id);
+      if (active.id !== over?.id) {
+        setItems((items: TImage[]) => {
+          const oldIndex = items.findIndex((items) => items.id === active.id);
+          const newIndex = items.findIndex((items) => items.id === over!.id);
 
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
 
-    setActiveId(null);
-  }, []);
+      setActiveId(null);
+    },
+    [setItems]
+  );
 
   // handle Drag Cancel
   const handleDragCancel = useCallback(() => {
