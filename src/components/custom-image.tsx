@@ -10,15 +10,17 @@ export default function CustomImage({
   imagePath,
   alt,
   priority = false,
+  tag,
 }: {
   imagePath: string;
   alt: string;
   priority?: boolean;
+  tag: number;
 }) {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   return (
-    <a href='#' className='group'>
+    <div className='group relative cursor-pointer'>
       <div className='aspect-w-7 aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200 relative'>
         <Image
           alt={alt}
@@ -38,6 +40,9 @@ export default function CustomImage({
           onLoadingComplete={() => setLoading(false)}
         />
       </div>
-    </a>
+      <span className='absolute bottom-4 left-4 bg-gray-700 text-white w-20 h-8 flex items-center justify-center rounded-full font-semibold'>
+        {tag}
+      </span>
+    </div>
   );
 }

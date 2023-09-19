@@ -34,6 +34,7 @@ export default async function Gallery() {
             imagePath={image.urls.regular}
             alt={image.alt_description}
             priority={idx < 5 ? true : false}
+            tag={idx}
           />
         ))}
       </div>
