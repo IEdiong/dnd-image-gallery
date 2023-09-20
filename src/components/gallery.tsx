@@ -34,7 +34,6 @@ export default function Gallery({ images: items, setImages: setItems }: Props) {
   // handle Drag Start
   const handleDragStart = useCallback((event: DragStartEvent) => {
     setActiveId(event.active.id as number);
-    console.log('dragStart', event);
   }, []);
 
   // handle Drag End
@@ -42,10 +41,12 @@ export default function Gallery({ images: items, setImages: setItems }: Props) {
     (event: DragEndEvent) => {
       const { active, over } = event;
 
-      if (active.id !== over?.id) {
+      if (over === null) return;
+
+      if (active.id !== over.id) {
         setItems((items: TImage[]) => {
           const oldIndex = items.findIndex((items) => items.id === active.id);
-          const newIndex = items.findIndex((items) => items.id === over!.id);
+          const newIndex = items.findIndex((items) => items.id === over.id);
 
           return arrayMove(items, oldIndex, newIndex);
         });
