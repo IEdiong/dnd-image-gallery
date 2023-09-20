@@ -18,13 +18,14 @@ export const options: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
         const user = {
           id: '1',
           password: '1Password',
           username: 'jsmith@example.com',
         };
+        console.log('credentials body', credentials);
 
         if (
           credentials?.username === user.username &&
