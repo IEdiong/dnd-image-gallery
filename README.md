@@ -81,6 +81,12 @@ npm run dev
 
 The development server will start, and the application will be accessible at [http://localhost:3000](http://localhost:3000)
 
+```js
+   // Sign in to the application with
+   username: jsmith@example.com
+   password: 1Password
+```
+
 <!-- ## Key Features
 - **Browse Movies:** Explore a vast library of movies across different genres and categories.
 
