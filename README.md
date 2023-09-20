@@ -24,6 +24,7 @@ Welcome to the Drag-n-drop image gallery App! This web application leverages the
 - **Frontend:** React.js, Next.js
 - **Styling:** TailwindCSS
 - **Drag-n-drop:** Dnd kit
+- **Authenication:** NextAuth
 - **Deployment:** Netlify
 - **Version Control:** Git, Github
 
