@@ -4,8 +4,16 @@ import SearchBar from '@/components/search-bar';
 import { Fragment, useState } from 'react';
 import json from '@/data/images.json';
 import { TImage } from '@/types';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+  const { data: session } = useSession({
+    required: true,
+    // onUnauthenticated() {
+    //   redirect('/signin?callbackUrl=/');
+    // },
+  });
   const [images, setImages] = useState(json);
 
   const handleChange = (queryString: string) => {
