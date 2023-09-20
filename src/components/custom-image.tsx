@@ -6,17 +6,19 @@ function cn(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+type Props = {
+  imagePath: string;
+  alt: string;
+  priority?: boolean;
+  tag: string;
+};
+
 export default function CustomImage({
   imagePath,
   alt,
   priority = false,
   tag,
-}: {
-  imagePath: string;
-  alt: string;
-  priority?: boolean;
-  tag: string;
-}) {
+}: Props) {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   return (

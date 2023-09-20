@@ -21,32 +21,12 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { useCallback, useState } from 'react';
 
-function SortableImage({ image }: { image: TImage }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: image.id });
-  const style = {
-    transition: transition || undefined,
-    transform: CSS.Transform.toString(transform),
-  };
-  return (
-    <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
-      <CustomImage
-        imagePath={image.url}
-        alt={image.alt}
-        priority={image.id < 5 ? true : false}
-        tag={image.tags[0].title}
-      />
-    </div>
-  );
-}
-
-export default function Gallery({
-  images: items,
-  setImages: setItems,
-}: {
+type Props = {
   images: TImage[];
   setImages: any;
-}) {
+};
+
+export default function Gallery({ images: items, setImages: setItems }: Props) {
   // const [items, setItems] = useState(images);
   const [activeId, setActiveId] = useState<number | null>(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
@@ -108,6 +88,25 @@ export default function Gallery({
         </DndContext>
       </div>
     </main>
+  );
+}
+
+function SortableImage({ image }: { image: TImage }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: image.id });
+  const style = {
+    transition: transition || undefined,
+    transform: CSS.Transform.toString(transform),
+  };
+  return (
+    <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
+      <CustomImage
+        imagePath={image.url}
+        alt={image.alt}
+        priority={image.id < 5 ? true : false}
+        tag={image.tags[0].title}
+      />
+    </div>
   );
 }
 
