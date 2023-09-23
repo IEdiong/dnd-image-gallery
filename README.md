@@ -84,7 +84,7 @@ The development server will start, and the application will be accessible at [ht
 
 ```js
    // Sign in to the application with
-   username: jsmith@example.com
+   username: user@example.com
    password: 1Password
 ```
 

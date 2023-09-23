@@ -17,7 +17,7 @@ export const options: NextAuthOptions = {
         const user = {
           id: '1',
           password: '1Password',
-          username: 'jsmith@example.com',
+          username: 'user@example.com',
         };
         console.log('credentials body', credentials);
 
