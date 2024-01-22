@@ -48,7 +48,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 2. Navigate to the project directory:
 
    ```bash
-   cd movie-box
+   cd dnd-image-gallery
    ```
 
 3. Install project dependencies:
