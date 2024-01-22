@@ -40,7 +40,7 @@ List any prerequisites or dependencies that need to be installed before running 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/IEdiong/movie-box.git
+   git clone https://github.com/IEdiong/dnd-image-gallery.git
    ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -87,10 +87,3 @@ The development server will start, and the application will be accessible at [ht
    username: user@example.com
    password: 1Password
 ```
-
-<!-- ## Key Features
-- **Browse Movies:** Explore a vast library of movies across different genres and categories.
-
-- **Movie Details:** Get detailed information about each movie, including cast, plot, release date, and more.
-
-- **Search Functionality:** Easily find your favorite movies or discover new ones with our robust search feature. -->
